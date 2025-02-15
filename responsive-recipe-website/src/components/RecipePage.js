@@ -4,13 +4,15 @@ import { Link } from 'react-router-dom';
 import './RecipePage.css';
 
 function RecipePage() {
+  const placeholderImage = process.env.PUBLIC_URL + '/placeholder.png';
+
   const recipes = [
-    { title: 'Recipe 1', image: 'path/to/image1.jpg' },
-    { title: 'Recipe 2', image: 'path/to/image2.jpg' },
-    { title: 'Recipe 3', image: 'path/to/image3.jpg' },
-    { title: 'Recipe 4', image: 'path/to/image4.jpg' },
-    { title: 'Recipe 5', image: 'path/to/image5.jpg' },
-    { title: 'Recipe 6', image: 'path/to/image6.jpg' },
+    { title: 'Recipe 1', image: placeholderImage },
+    { title: 'Recipe 2', image: placeholderImage },
+    { title: 'Recipe 3', image: placeholderImage },
+    { title: 'Recipe 4', image: placeholderImage },
+    { title: 'Recipe 5', image: placeholderImage },
+    { title: 'Recipe 6', image: placeholderImage },
   ];
 
   return (
