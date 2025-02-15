@@ -1,9 +1,9 @@
 import React from 'react';
-import './RecipeCard.css';
+import './RecipeDetails.css';
 
-function RecipeCard({ title, image }) {
+function RecipeDetails({ title, image }) {
   return (
-    <div className="recipe-card">
+    <div className="recipe-details">
       <div className="recipe-title">{title}</div>
       <div className="recipe-image">
         <img src={image} alt={title} />
@@ -12,4 +12,4 @@ function RecipeCard({ title, image }) {
   );
 }
 
-export default RecipeCard;
+export default RecipeDetails;

@@ -1,5 +1,5 @@
 import React from 'react';
-import RecipeCard from './RecipeCard';
+import RecipeDetails from './RecipeDetails';
 import { Link } from 'react-router-dom';
 import './RecipePage.css';
 
@@ -23,7 +23,7 @@ function RecipePage() {
       </div>
       <div className="recipe-grid">
         {recipes.map((recipe, index) => (
-          <RecipeCard key={index} title={recipe.title} image={recipe.image} />
+          <RecipeDetails key={index} title={recipe.title} image={recipe.image} />
         ))}
       </div>
     </div>

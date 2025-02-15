@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import RecipePage from './components/RecipePage';
 import CreateRecipe from './components/CreateRecipe';
 import './App.css';
@@ -10,6 +10,9 @@ function App() {
       <div className="App">
         <header className="App-header">
           <h1>Responsive Recipe Web App</h1>
+          <nav>
+            <Link to="/">Home</Link>
+          </nav>
         </header>
         <Routes>
           <Route path="/" element={<RecipePage />} />
