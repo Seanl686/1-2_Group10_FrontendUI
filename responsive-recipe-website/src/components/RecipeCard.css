@@ -1,0 +1,16 @@
+.recipe-card {
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.recipe-title {
+  font-size: 1.2em;
+  margin-bottom: 10px;
+}
+
+.recipe-image img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 5px;
+}

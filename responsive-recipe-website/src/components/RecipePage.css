@@ -1,0 +1,36 @@
+.recipe-page {
+  padding: 20px;
+}
+
+.recipe-page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.recipe-page-title {
+  font-size: 2em;
+  margin-bottom: 20px;
+}
+
+.create-recipe-link {
+  font-size: 1em;
+  color: #007bff;
+  text-decoration: none;
+}
+
+.create-recipe-link:hover {
+  text-decoration: underline;
+}
+
+.recipe-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+@media (max-width: 768px) {
+  .recipe-grid {
+    grid-template-columns: 1fr;
+  }
+}
