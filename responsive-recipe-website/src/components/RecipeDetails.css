@@ -1,3 +1,9 @@
+.recipe-details-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
 .recipe-details {
   border: 1px solid #ccc;
   padding: 20px;

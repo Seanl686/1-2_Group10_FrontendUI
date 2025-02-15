@@ -22,34 +22,36 @@ function RecipeDetails() {
   }
 
   return (
-    <div className="recipe-details">
-      <div className="recipe-header">
-        <div className="recipe-title">{recipe.title}</div>
-        <Link to={`/edit-recipe/${recipe.id}`} className="edit-recipe-link">Edit this recipe</Link>
-      </div>
-      <div className="recipe-content">
-        <div className="recipe-image">
-          <img src={recipe.image} alt={recipe.title} />
+    <div className="recipe-details-container">
+      <div className="recipe-details">
+        <div className="recipe-header">
+          <div className="recipe-title">{recipe.title}</div>
+          <Link to={`/edit-recipe/${recipe.id}`} className="edit-recipe-link">Edit this recipe</Link>
         </div>
-        <div className="recipe-info">
-          <div className="recipe-ingredients">
-            <h3>Ingredients</h3>
-            <ol>
-              {recipe.ingredients.map((ingredient, index) => (
-                <li key={index}>{ingredient}</li>
-              ))}
-            </ol>
+        <div className="recipe-content">
+          <div className="recipe-image">
+            <img src={recipe.image} alt={recipe.title} />
           </div>
-          <div className="recipe-times">
-            <p><strong>Prep Time:</strong> {recipe.prepTime}</p>
-            <p><strong>Cook Time:</strong> {recipe.cookTime}</p>
-            <p><strong>Total Time:</strong> {recipe.totalTime}</p>
+          <div className="recipe-info">
+            <div className="recipe-ingredients">
+              <h3>Ingredients</h3>
+              <ol>
+                {recipe.ingredients.map((ingredient, index) => (
+                  <li key={index}>{ingredient}</li>
+                ))}
+              </ol>
+            </div>
+            <div className="recipe-times">
+              <p><strong>Prep Time:</strong> {recipe.prepTime}</p>
+              <p><strong>Cook Time:</strong> {recipe.cookTime}</p>
+              <p><strong>Total Time:</strong> {recipe.totalTime}</p>
+            </div>
           </div>
         </div>
-      </div>
-      <div className="recipe-instructions">
-        <h3>Instructions</h3>
-        <p>{recipe.instructions}</p>
+        <div className="recipe-instructions">
+          <h3>Instructions</h3>
+          <p>{recipe.instructions}</p>
+        </div>
       </div>
     </div>
   );
