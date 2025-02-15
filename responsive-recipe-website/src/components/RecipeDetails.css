@@ -1,12 +1,30 @@
 .recipe-details {
   border: 1px solid #ccc;
-  padding: 10px;
+  padding: 20px;
   border-radius: 5px;
 }
 
+.recipe-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
 .recipe-title {
-  font-size: 1.2em;
+  font-size: 1.5em;
   margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.edit-recipe-link {
+  font-size: 0.9em;
+  color: #007bff;
+  text-decoration: none;
+}
+
+.edit-recipe-link:hover {
+  text-decoration: underline;
 }
 
 .recipe-image img {

@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import RecipePage from './components/RecipePage';
 import CreateRecipe from './components/CreateRecipe';
+import RecipeDetails from './components/RecipeDetails';
 import './App.css';
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
         <Routes>
           <Route path="/" element={<RecipePage />} />
           <Route path="/create-recipe" element={<CreateRecipe />} />
+          <Route path="/recipe/:id" element={<RecipeDetails />} />
         </Routes>
         <footer className="App-footer">
           <p>&copy; 2025 Your Name</p>
