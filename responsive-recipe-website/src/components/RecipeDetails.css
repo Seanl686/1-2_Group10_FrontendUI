@@ -34,6 +34,7 @@
 
 .recipe-image {
   flex: 1;
+  order: 2; /* Move image to the right on desktop */
 }
 
 .recipe-image img {
@@ -44,6 +45,7 @@
 
 .recipe-info {
   flex: 1;
+  order: 1; /* Move info to the left on desktop */
 }
 
 .recipe-ingredients,
@@ -69,11 +71,11 @@
   }
 
   .recipe-image {
-    order: 1;
+    order: 1; /* Move image above info on mobile */
   }
 
   .recipe-info {
-    order: 2;
+    order: 2; /* Move info below image on mobile */
   }
 
   .recipe-instructions {
