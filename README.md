@@ -15,21 +15,23 @@ To view the wireframe files from the build folder on your local machine using np
    ```sh
    cd path\to\your\project\directory
    ```
-3. Install the `serve` package globally:
+3. Install the project dependencies:
    ```sh
-   npm install -g serve
+   npm install
    ```
-4. Navigate to the build folder:
+4. Start the development server:
    ```sh
-   cd path\to\your\build\folder
+   npm  run start
    ```
-5. Start the server using the `serve` command:
-   ```sh
-   serve -s .
-   ```
+5. Open your web browser and go to `http://localhost:3000` to view the wireframe files.
+
+### Explanation
+- **Install Dependencies**: Added a step to install the project dependencies using `npm install`.
+- **Start Development Server**: Provided a step to start the development server using `npm start`.
+- **Access Application**: Instructed to open the web browser and go to `http://localhost:3000` to view the wireframe files.
 
 ### Notes
 - Ensure Node.js and npm are installed.
-- The default port used by `serve` is 5000.
+- The default port used by `serve` is 3000.
 
-With these instructions, team members can easily view the wireframe files from the build folder on their local machines using npm, regardless of their operating system.
+By following these steps, team members can easily view the wireframe files from the build folder on their local machines using `npm run start`.
