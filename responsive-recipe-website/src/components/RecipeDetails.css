@@ -76,7 +76,7 @@
 
 .recipe-times {
   margin-bottom: 20px;
-  text-align: left; /* Left align the times */
+  text-align: center; /* center align the times */
 }
 
 .recipe-instructions {
