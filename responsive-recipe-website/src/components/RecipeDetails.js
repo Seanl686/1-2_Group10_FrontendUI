@@ -48,11 +48,11 @@ function RecipeDetails() {
             </div>
           </div>
         </div>
-        <div className="recipe-instructions">
-          <div className="instructions-title">
+        <div className="instructions-title">
             <h3>Instructions</h3>
           </div>
-          <ol>
+          <div className="recipe-instructions">
+            <ol>
             {recipe.instructions.split('. ').map((step, index) => (
               <li key={index}>{step}</li>
             ))}

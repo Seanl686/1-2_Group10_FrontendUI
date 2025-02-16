@@ -81,6 +81,8 @@
 
 .recipe-instructions {
   margin-top: 20px;
+  order: 3;
+    text-align: left; /* Left align the instructions */
 }
 
 .instructions-title h3 {
@@ -104,10 +106,6 @@
   .recipe-info {
     order: 2; /* Move info below image on mobile */
     display: block;
-  }
-
-  .recipe-instructions {
-    order: 3;
   }
 
   .recipe-ingredients h3,
