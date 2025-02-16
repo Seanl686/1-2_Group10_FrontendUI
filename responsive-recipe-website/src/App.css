@@ -37,6 +37,7 @@
   padding: 10px;
   font-size: 1.2em;
   font-weight: bold;
+  color: #333; /* Darker text color for better contrast */
 }
 
 .App {
@@ -46,14 +47,24 @@
 .App-header {
   background-color: #282c34;
   padding: 20px;
-  color: white;
+  color: #ffffff; /* Ensure text is white for better contrast */
 }
 
 .App-footer {
   background-color: #282c34;
   padding: 10px;
-  color: white;
+  color: #ffffff; /* Ensure text is white for better contrast */
   position: fixed;
   width: 100%;
   bottom: 0;
+}
+
+nav a {
+  color: #d3b8e6; /* Light purple color for navigation links */
+  text-decoration: none;
+  padding: 0 10px;
+}
+
+nav a:hover {
+  text-decoration: underline;
 }
