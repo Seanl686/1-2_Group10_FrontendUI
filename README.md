@@ -13,7 +13,7 @@ To view the wireframe files from the build folder on your local machine using np
 1. Open terminal.
 2. Navigate to the project directory using the `cd` command:
    ```sh
-   cd path\to\your\project\directory
+   cd "ExampleFileStructure\Github\1-2_Group10_FrontendUI\responsive-recipe-website"
    ```
 3. Install the project dependencies:
    ```sh
