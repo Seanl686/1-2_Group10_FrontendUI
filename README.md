@@ -1,5 +1,11 @@
 # 1-2_Group10_FrontendUI
 
+# Progress so far
+
+![Screenshot](./src/assets/images/Screenshot-2025-02-16-190425.png)
+![Screenshot](./src/assets/images/Screenshot2025-02-16-190409.png)
+![Screenshot](./src/assets/images/Screenshot2025-02-16-190441.png)
+
 ## Viewing Wireframe Files from the Build Folder
 
 To view the wireframe files from the build folder on your local machine using npm, follow the instructions below for your operating system.
