@@ -1,0 +1,111 @@
+-- Create Users Table
+CREATE TABLE users (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    password_hash TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT NOW()
+);
+
+-- Create Recipes Table
+CREATE TABLE recipes (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    user_id UUID REFERENCES users(id) ON DELETE SET NULL,
+    title VARCHAR(255) NOT NULL,
+    image_url TEXT,
+    prep_time INTERVAL,
+    cook_time INTERVAL,
+    total_time INTERVAL GENERATED ALWAYS AS (prep_time + cook_time) STORED,
+    created_at TIMESTAMP DEFAULT NOW()
+);
+
+-- Create Ingredients Table
+CREATE TABLE ingredients (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    recipe_id UUID REFERENCES recipes(id) ON DELETE CASCADE,
+    name VARCHAR(255) NOT NULL,
+    quantity VARCHAR(50) NOT NULL
+);
+
+-- Create Instructions Table
+CREATE TABLE instructions (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    recipe_id UUID REFERENCES recipes(id) ON DELETE CASCADE,
+    step_number INTEGER NOT NULL,
+    description TEXT NOT NULL
+);
+
+-- Create Recipe Images Table
+CREATE TABLE recipe_images (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    recipe_id UUID REFERENCES recipes(id) ON DELETE CASCADE,
+    image_url TEXT NOT NULL,
+    uploaded_at TIMESTAMP DEFAULT NOW()
+);
+
+-- Create Recipe Edits Table (for tracking modifications)
+CREATE TABLE recipe_edits (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    recipe_id UUID REFERENCES recipes(id) ON DELETE CASCADE,
+    user_id UUID REFERENCES users(id) ON DELETE SET NULL,
+    edit_timestamp TIMESTAMP DEFAULT NOW(),
+    changes TEXT NOT NULL
+);
+
+-- Insert Sample Data
+INSERT INTO users (name, email, password_hash) 
+VALUES ('John Doe', 'john@example.com', 'hashed_password');
+
+INSERT INTO recipes (user_id, title, image_url, prep_time, cook_time) 
+VALUES (
+    (SELECT id FROM users WHERE email = 'john@example.com'),
+    'Spaghetti Carbonara',
+    'https://example.com/spaghetti.jpg',
+    '15 minutes',
+    '20 minutes'
+);
+
+INSERT INTO ingredients (recipe_id, name, quantity) 
+VALUES 
+    ((SELECT id FROM recipes WHERE title = 'Spaghetti Carbonara'), 'Spaghetti', '200g'),
+    ((SELECT id FROM recipes WHERE title = 'Spaghetti Carbonara'), 'Eggs', '2'),
+    ((SELECT id FROM recipes WHERE title = 'Spaghetti Carbonara'), 'Parmesan Cheese', '50g');
+
+INSERT INTO instructions (recipe_id, step_number, description) 
+VALUES 
+    ((SELECT id FROM recipes WHERE title = 'Spaghetti Carbonara'), 1, 'Boil spaghetti until al dente.'),
+    ((SELECT id FROM recipes WHERE title = 'Spaghetti Carbonara'), 2, 'Mix eggs with Parmesan cheese.'),
+    ((SELECT id FROM recipes WHERE title = 'Spaghetti Carbonara'), 3, 'Combine pasta with egg mixture and mix well.');
+
+INSERT INTO recipe_images (recipe_id, image_url) 
+VALUES ((SELECT id FROM recipes WHERE title = 'Spaghetti Carbonara'), 'https://example.com/spaghetti.jpg');
+
+-- Retrieve Recipe Data with Image & Edit Tracking
+SELECT r.id, r.title, r.image_url, r.prep_time, r.cook_time, r.total_time, 
+       i.name AS ingredient_name, i.quantity, 
+       instr.step_number, instr.description, 
+       img.image_url AS recipe_image, 
+       re.edit_timestamp, re.changes
+FROM recipes r
+LEFT JOIN ingredients i ON r.id = i.recipe_id
+LEFT JOIN instructions instr ON r.id = instr.recipe_id
+LEFT JOIN recipe_images img ON r.id = img.recipe_id
+LEFT JOIN recipe_edits re ON r.id = re.recipe_id
+WHERE r.id = (SELECT id FROM recipes WHERE title = 'Spaghetti Carbonara')
+ORDER BY instr.step_number, re.edit_timestamp;
+
+-- Update Recipe Title
+UPDATE recipes 
+SET title = 'Updated Spaghetti Carbonara' 
+WHERE title = 'Spaghetti Carbonara';
+
+-- Track Recipe Edit
+INSERT INTO recipe_edits (recipe_id, user_id, changes) 
+VALUES (
+    (SELECT id FROM recipes WHERE title = 'Updated Spaghetti Carbonara'), 
+    (SELECT id FROM users WHERE email = 'john@example.com'), 
+    'Title changed to Updated Spaghetti Carbonara'
+);
+
+-- Delete Recipe
+DELETE FROM recipes WHERE title = 'Updated Spaghetti Carbonara';
