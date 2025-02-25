@@ -6,10 +6,6 @@
 ![Screenshot](./images/Screenshot_2025-02-16-190409.png)
 ![Screenshot](./images/Screenshot_2025-02-16-190441.png)
 
-## Viewing Wireframe Files from the Build Folder
-
-To view the wireframe files from the build folder on your local machine using npm, follow the instructions below for your operating system.
-
 ### Prerequisites
 
 - Ensure Node.js and npm are installed on your machine. You can download them from [nodejs.org](https://nodejs.org/).
@@ -24,16 +20,17 @@ To view the wireframe files from the build folder on your local machine using np
 3. Install the project dependencies:
    ```sh
    npm install
+   npm install @vitejs/plugin-react --save-dev
    ```
 4. Start the development server:
    ```sh
-   npm  run start
+   npm  run dev
    ```
 5. Open your web browser and go to `http://localhost:3000` to view the wireframe files.
 
 ### Explanation
-- **Install Dependencies**: Added a step to install the project dependencies using `npm install`.
-- **Start Development Server**: Provided a step to start the development server using `npm start`.
+- **Install Dependencies**: Added a step to install the project dependencies using `npm install` and `npm install @vitejs/plugin-react --save-dev`.
+- **Start Development Server**: Provided a step to start the development server using `npm run dev`.
 - **Access Application**: Instructed to open the web browser and go to `http://localhost:3000` to view the wireframe files.
 
 ### Notes

@@ -1,63 +1,76 @@
-# Responsive Recipe Website
+# React + Vite
 
-This project is a responsive recipe website built with React.js. It features a recipe page that displays recipes in a grid layout, making it easy to browse through various recipes.
+# Recipe Web Application
 
-## Project Structure
-
-```
-responsive-recipe-website
-├── public
-│   ├── index.html        # Main HTML file for the application
-│   └── favicon.ico       # Favicon for the website
-├── src
-│   ├── components
-│   │   ├── RecipeCard.js # Component for displaying individual recipe cards
-│   │   └── RecipePage.js # Component for organizing recipe cards in a grid
-│   ├── App.js            # Main application component
-│   ├── index.js          # Entry point of the React application
-│   ├── App.css           # Styles for the App component
-│   └── index.css         # Global styles for the application
-├── package.json          # Configuration file for npm
-├── .gitignore            # Specifies files to be ignored by Git
-└── README.md             # Documentation for the project
-```
-
-## Getting Started
-
-To get started with the project, follow these steps:
-
-1. **Clone the repository**:
-   ```
-   git clone <repository-url>
-   ```
-
-2. **Navigate to the project directory**:
-   ```
-   cd responsive-recipe-website
-   ```
-
-3. **Install dependencies**:
-   ```
-   npm install
-   ```
-
-4. **Run the application**:
-   ```
-   npm start
-   ```
-
-The application will be available at `http://localhost:3000`.
+A responsive React application for managing and viewing recipes, built with Vite.
 
 ## Features
 
-- Responsive design that adapts to different screen sizes.
-- Grid layout for displaying recipes in an organized manner.
-- Each recipe card includes a title and an image.
+- View recipe cards with titles and images
+- Detailed recipe view with:
+  - Ingredients list
+  - Preparation times
+  - Step-by-step instructions
+- Create new recipes
+- Edit existing recipes
+--Still need to make this.
 
-## Contributing
+## Prerequisites
 
-Contributions are welcome! Please feel free to submit a pull request or open an issue for any suggestions or improvements.
+- Node.js (v14 or higher)
+- npm (v6 or higher)
 
-## License
+## Installation
 
-This project is licensed under the MIT License.
+1. Clone the repository:
+```bash
+git clone [your-repository-url]
+cd 1-2_Group10_FrontendViteUI
+```
+
+2. Install dependencies:
+```bash
+npm install
+npm install @vitejs/plugin-react --save-dev
+```
+
+3.
+Running the Application
+Development Mode
+```bash
+npm run dev
+```
+The application will start at http://localhost:# The location will be said in terminal.
+
+Production Build
+```bash
+npm run build
+```
+```bash
+npm run preview
+```
+File Structure
+```
+src/
+├── assets/
+│   └── placeholder.png    # Default recipe image
+├── components/
+│   ├── RecipePage.jsx     # Main recipe grid view
+│   ├── RecipeDetails.jsx  # Detailed recipe view
+│   └── CreateRecipe.jsx   # Recipe creation form
+├── data/
+│   └── recipes.js         # Recipe data
+├── App.jsx               # Main application component
+└── main.jsx             # Application entry point
+```
+
+Technologies Used
+React
+Vite
+React Router
+CSS Modules
+
+Currently, two official plugins are available:
+
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
