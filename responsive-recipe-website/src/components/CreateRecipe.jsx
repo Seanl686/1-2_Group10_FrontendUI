@@ -98,6 +98,17 @@ function CreateRecipe() {
     });
   };
 
+  // Add this handler function
+  const handleTimeChange = (field, value) => {
+    // Only allow numbers
+    if (/^\d*$/.test(value)) {
+      setFormData({
+        ...formData,
+        [field]: value
+      });
+    }
+  };
+
   return (
     <div className="create-recipe">
       <h1>{id ? 'Edit Recipe' : 'Create New Recipe'}</h1>
@@ -113,23 +124,25 @@ function CreateRecipe() {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="prepTime">Prep Time:</label>
+          <label htmlFor="prepTime">Prep Time (minutes):</label>
           <input
             type="text"
             id="prepTime"
             value={formData.prepTime}
-            onChange={(e) => setFormData({ ...formData, prepTime: e.target.value })}
-            required
+            onChange={(e) => handleTimeChange('prepTime', e.target.value)}
+            placeholder="Enter prep time in minutes"
+            pattern="\d*"
           />
         </div>
         <div className="form-group">
-          <label htmlFor="cookTime">Cook Time:</label>
+          <label htmlFor="cookTime">Cook Time (minutes):</label>
           <input
             type="text"
             id="cookTime"
             value={formData.cookTime}
-            onChange={(e) => setFormData({ ...formData, cookTime: e.target.value })}
-            required
+            onChange={(e) => handleTimeChange('cookTime', e.target.value)}
+            placeholder="Enter cook time in minutes"
+            pattern="\d*"
           />
         </div>
         <div className="form-group">
