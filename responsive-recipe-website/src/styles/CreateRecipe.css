@@ -1,5 +1,6 @@
 .create-recipe {
   padding: 20px;
+  margin-bottom: 100px; /* Add margin to bottom of page */
 }
 
 .create-recipe h1 {
@@ -84,4 +85,14 @@ button:hover {
 
 .remove-btn:hover {
   background-color: #cc0000;
+}
+
+/* Optional: If you want the button to stay visible at bottom */
+.create-recipe button[type="submit"] {
+  margin-bottom: 20px;
+}
+
+/* Add padding to the form container */
+.form-group:last-child {
+  margin-bottom: 40px;
 }

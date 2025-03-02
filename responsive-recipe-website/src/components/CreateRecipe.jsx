@@ -44,27 +44,28 @@ function CreateRecipe() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const endpoint = id ? `http://localhost:5000/recipes/${id}` : 'http://localhost:5000/recipes';
-    const method = id ? 'PUT' : 'POST';
-
     try {
-      const response = await fetch(endpoint, {
-        method: method,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData)
-      });
+        const response = await fetch('http://localhost:5000/recipes', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData)
+        });
 
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
+        if (!response.ok) {
+            throw new Error('Failed to create recipe');
+        }
 
-      navigate('/');
+        const data = await response.json();
+        console.log('Recipe created:', data);
+        alert('Recipe created successfully!');
+        navigate('/');
     } catch (error) {
-      console.error('Error saving recipe:', error);
+        console.error('Error:', error);
+        alert('Failed to create recipe: ' + error.message);
     }
-  };
+};
 
   const handleIngredientChange = (index, value) => {
     const updatedIngredients = [...formData.ingredients];

@@ -28,66 +28,98 @@ mongoose.connect(process.env.MONGO_URI, {
   .catch(err => console.log(err));
 
 // Define Schema & Model
-const ItemSchema = new mongoose.Schema({
-    name: String,
-    description: String,
+const RecipeSchema = new mongoose.Schema({
+    title: { type: String, required: true },
+    image_url: { type: String },
+    prep_time: { type: String },
+    cook_time: { type: String },
+    total_time: { type: String },
+    ingredients: [{
+        name: { type: String, required: true },
+        quantity: { type: String, required: true }
+    }],
+    instructions: [{
+        step_number: { type: Number, required: true },
+        description: { type: String, required: true }
+    }],
+    created_at: { type: Date, default: Date.now }
 });
-const Item = mongoose.model("Item", ItemSchema);
+
+const Recipe = mongoose.model("Recipe", RecipeSchema);
 
 // CRUD Routes
 
-// Create an item
-app.post("/items", async (req, res) => {
+// Create a recipe
+app.post("/recipes", async (req, res) => {
     try {
-        const newItem = new Item(req.body);
-        await newItem.save();
-        res.status(201).json(newItem);
+        const newRecipe = new Recipe(req.body);
+        await newRecipe.save();
+        console.log('Recipe created:', newRecipe); // Add this line
+        res.status(201).json(newRecipe);
+    } catch (err) {
+        console.error('Error creating recipe:', err); // Add this line
+        res.status(400).json({ error: err.message });
+    }
+});
+
+// Read all recipes
+app.get("/recipes", async (req, res) => {
+    try {
+        const recipes = await Recipe.find();
+        res.json(recipes);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+// Read a single recipe
+app.get("/recipes/:id", async (req, res) => {
+    try {
+        const recipe = await Recipe.findById(req.params.id);
+        if (!recipe) return res.status(404).json({ message: "Recipe not found" });
+        res.json(recipe);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+// Update a recipe
+app.put("/recipes/:id", async (req, res) => {
+    try {
+        const updatedRecipe = await Recipe.findByIdAndUpdate(
+            req.params.id, 
+            req.body, 
+            { new: true }
+        );
+        if (!updatedRecipe) return res.status(404).json({ message: "Recipe not found" });
+        res.json(updatedRecipe);
     } catch (err) {
         res.status(400).json({ error: err.message });
     }
 });
 
-// Read all items
-app.get("/items", async (req, res) => {
+// Delete a recipe
+app.delete("/recipes/:id", async (req, res) => {
     try {
-        const items = await Item.find();
-        res.json(items);
+        const deletedRecipe = await Recipe.findByIdAndDelete(req.params.id);
+        if (!deletedRecipe) return res.status(404).json({ message: "Recipe not found" });
+        res.json({ message: "Recipe deleted successfully" });
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
 });
 
-// Read a single item
-app.get("/items/:id", async (req, res) => {
-    try {
-        const item = await Item.findById(req.params.id);
-        if (!item) return res.status(404).json({ message: "Item not found" });
-        res.json(item);
-    } catch (err) {
-        res.status(500).json({ error: err.message });
-    }
+// Add error handling middleware
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).json({ error: 'Something broke!' });
 });
 
-// Update an item
-app.put("/items/:id", async (req, res) => {
-    try {
-        const updatedItem = await Item.findByIdAndUpdate(req.params.id, req.body, { new: true });
-        if (!updatedItem) return res.status(404).json({ message: "Item not found" });
-        res.json(updatedItem);
-    } catch (err) {
-        res.status(400).json({ error: err.message });
-    }
+// Add this before app.listen()
+app.get("/test", (req, res) => {
+    res.json({ message: "API is working" });
 });
 
-// Delete an item
-app.delete("/items/:id", async (req, res) => {
-    try {
-        const deletedItem = await Item.findByIdAndDelete(req.params.id);
-        if (!deletedItem) return res.status(404).json({ message: "Item not found" });
-        res.json({ message: "Item deleted successfully" });
-    } catch (err) {
-        res.status(500).json({ error: err.message });
-    }
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
 });
-
-// Start the server
