@@ -54,10 +54,10 @@ app.post("/recipes", async (req, res) => {
     try {
         const newRecipe = new Recipe(req.body);
         await newRecipe.save();
-        console.log('Recipe created:', newRecipe); // Add this line
+        console.log('Recipe created:', newRecipe); // Should show _id in the console
         res.status(201).json(newRecipe);
     } catch (err) {
-        console.error('Error creating recipe:', err); // Add this line
+        console.error('Error creating recipe:', err);
         res.status(400).json({ error: err.message });
     }
 });
@@ -77,7 +77,16 @@ app.get("/recipes/:id", async (req, res) => {
     try {
         const recipe = await Recipe.findById(req.params.id);
         if (!recipe) return res.status(404).json({ message: "Recipe not found" });
-        res.json(recipe);
+        
+        // Format the response by removing " minutes" from time fields
+        const formattedRecipe = {
+            ...recipe.toObject(),
+            prep_time: recipe.prep_time ? recipe.prep_time.replace(' minutes', '') : '',
+            cook_time: recipe.cook_time ? recipe.cook_time.replace(' minutes', '') : '',
+            total_time: recipe.total_time ? recipe.total_time.replace(' minutes', '') : ''
+        };
+        
+        res.json(formattedRecipe);
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
@@ -86,11 +95,19 @@ app.get("/recipes/:id", async (req, res) => {
 // Update a recipe
 app.put("/recipes/:id", async (req, res) => {
     try {
+        const updateData = {
+            ...req.body,
+            prep_time: req.body.prep_time ? `${req.body.prep_time} minutes` : '',
+            cook_time: req.body.cook_time ? `${req.body.cook_time} minutes` : '',
+            total_time: req.body.total_time ? `${req.body.total_time} minutes` : ''
+        };
+
         const updatedRecipe = await Recipe.findByIdAndUpdate(
             req.params.id, 
-            req.body, 
+            updateData, 
             { new: true }
         );
+        
         if (!updatedRecipe) return res.status(404).json({ message: "Recipe not found" });
         res.json(updatedRecipe);
     } catch (err) {

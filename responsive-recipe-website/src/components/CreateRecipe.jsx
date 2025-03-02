@@ -252,6 +252,13 @@ function CreateRecipe() {
         )}
         <button type="submit">{id ? 'Update Recipe' : 'Add Recipe'}</button>
       </form>
+      <div className="recipe-times">
+        <p><strong>Prep Time:</strong> {formData.prepTime} minutes</p>
+        <p><strong>Cook Time:</strong> {formData.cookTime} minutes</p>
+        {formData.totalTime && (
+            <p><strong>Total Time:</strong> {formData.totalTime} minutes</p>
+        )}
+      </div>
     </div>
   );
 }

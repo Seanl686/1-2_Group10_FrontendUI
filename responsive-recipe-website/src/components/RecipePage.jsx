@@ -38,7 +38,7 @@ function RecipePage() {
       </div>
       <div className="recipe-grid">
         {recipes.map((recipe) => (
-          <Link key={recipe.id} to={`/recipe/${recipe.id}`} className="recipe-link">
+          <Link key={recipe._id} to={`/recipe/${recipe._id}`} className="recipe-link">
             <div className="recipe-card">
               <div className="recipe-title">{recipe.title}</div>
               <div className="recipe-image">
