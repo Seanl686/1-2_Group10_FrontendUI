@@ -2,7 +2,7 @@ import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { recipes } from '../data/recipes';
 import placeholderImage from '../assets/placeholder.png';
-import './RecipeDetails.css';
+import '../styles/RecipeDetails.css';
 
 function RecipeDetails() {
   const { id } = useParams();

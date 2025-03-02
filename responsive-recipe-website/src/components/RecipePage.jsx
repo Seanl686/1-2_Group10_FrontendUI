@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { recipes } from '../data/recipes';
 import placeholderImage from '../assets/placeholder.png';
-import './RecipePage.css';
+import '../styles/RecipePage.css';
 
 function RecipePage() {
   return (
