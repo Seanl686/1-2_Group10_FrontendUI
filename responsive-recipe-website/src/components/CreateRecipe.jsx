@@ -44,17 +44,36 @@ function CreateRecipe() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    // Format the data to match the backend schema
+    const formattedData = {
+        title: formData.title,
+        prep_time: `${formData.prepTime} minutes`,
+        cook_time: `${formData.cookTime} minutes`,
+        image_url: formData.imageUrl,
+        ingredients: formData.ingredients.map((ingredient, index) => ({
+            name: ingredient,
+            quantity: "1", // You might want to add a quantity field to your form
+            step_number: index + 1
+        })),
+        instructions: formData.instructions.map((instruction, index) => ({
+            step_number: index + 1,
+            description: instruction
+        }))
+    };
+
     try {
         const response = await fetch('http://localhost:5000/recipes', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(formData)
+            body: JSON.stringify(formattedData)
         });
 
         if (!response.ok) {
-            throw new Error('Failed to create recipe');
+            const errorData = await response.json();
+            throw new Error(errorData.error || 'Failed to create recipe');
         }
 
         const data = await response.json();
@@ -147,36 +166,49 @@ function CreateRecipe() {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="ingredients">Ingredients:</label>
-          {formData.ingredients.map((ingredient, index) => (
-            <div key={index} className="input-group">
-              <input
+    <label htmlFor="ingredients">Ingredients:</label>
+    {formData.ingredients.map((ingredient, index) => (
+        <div key={index} className="input-group">
+            <input
                 type="text"
-                value={ingredient}
-                onChange={(e) => handleIngredientChange(index, e.target.value)}
+                value={ingredient.quantity || ''}
+                onChange={(e) => handleIngredientChange(index, {
+                    ...ingredient,
+                    quantity: e.target.value
+                })}
+                placeholder="Quantity"
+                className="quantity-input"
+            />
+            <input
+                type="text"
+                value={ingredient.name || ''}
+                onChange={(e) => handleIngredientChange(index, {
+                    ...ingredient,
+                    name: e.target.value
+                })}
                 placeholder={`Ingredient ${index + 1}`}
-              />
-              {formData.ingredients.length > 1 && (
+            />
+            {formData.ingredients.length > 1 && (
                 <button 
-                  type="button" 
-                  onClick={() => handleRemoveIngredient(index)}
-                  className="remove-btn"
+                    type="button" 
+                    onClick={() => handleRemoveIngredient(index)}
+                    className="remove-btn"
                 >
-                  Remove
+                    Remove
                 </button>
-              )}
-            </div>
-          ))}
-          <button 
-            type="button" 
-            onClick={() => setFormData({
-              ...formData,
-              ingredients: [...formData.ingredients, '']
-            })}
-          >
-            Add Ingredient
-          </button>
+            )}
         </div>
+    ))}
+    <button 
+        type="button" 
+        onClick={() => setFormData({
+            ...formData,
+            ingredients: [...formData.ingredients, { name: '', quantity: '' }]
+        })}
+    >
+        Add Ingredient
+    </button>
+</div>
 
         <div className="form-group">
           <label htmlFor="instructions">Instructions:</label>
