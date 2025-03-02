@@ -9,7 +9,7 @@ function CreateRecipe() {
     title: '',
     prepTime: '',
     cookTime: '',
-    ingredients: [],
+    ingredients: [{ name: '', quantity: '' }], // Initialize with an object
     instructions: [],
     imageUrl: ''
   });
@@ -52,9 +52,8 @@ function CreateRecipe() {
         cook_time: `${formData.cookTime} minutes`,
         image_url: formData.imageUrl,
         ingredients: formData.ingredients.map((ingredient, index) => ({
-            name: ingredient,
-            quantity: "1", // You might want to add a quantity field to your form
-            step_number: index + 1
+            name: ingredient.name,
+            quantity: ingredient.quantity
         })),
         instructions: formData.instructions.map((instruction, index) => ({
             step_number: index + 1,
@@ -86,9 +85,12 @@ function CreateRecipe() {
     }
 };
 
-  const handleIngredientChange = (index, value) => {
+  const handleIngredientChange = (index, field, value) => {
     const updatedIngredients = [...formData.ingredients];
-    updatedIngredients[index] = value;
+    updatedIngredients[index] = {
+      ...updatedIngredients[index],
+      [field]: value
+    };
     setFormData({ ...formData, ingredients: updatedIngredients });
   };
 
@@ -166,48 +168,42 @@ function CreateRecipe() {
           />
         </div>
         <div className="form-group">
-    <label htmlFor="ingredients">Ingredients:</label>
-    {formData.ingredients.map((ingredient, index) => (
-        <div key={index} className="input-group">
-            <input
-                type="text"
-                value={ingredient.quantity || ''}
-                onChange={(e) => handleIngredientChange(index, {
-                    ...ingredient,
-                    quantity: e.target.value
-                })}
-                placeholder="Quantity"
-                className="quantity-input"
-            />
-            <input
-                type="text"
-                value={ingredient.name || ''}
-                onChange={(e) => handleIngredientChange(index, {
-                    ...ingredient,
-                    name: e.target.value
-                })}
-                placeholder={`Ingredient ${index + 1}`}
-            />
-            {formData.ingredients.length > 1 && (
-                <button 
-                    type="button" 
-                    onClick={() => handleRemoveIngredient(index)}
-                    className="remove-btn"
-                >
-                    Remove
-                </button>
-            )}
-        </div>
-    ))}
-    <button 
-        type="button" 
-        onClick={() => setFormData({
-            ...formData,
-            ingredients: [...formData.ingredients, { name: '', quantity: '' }]
-        })}
-    >
-        Add Ingredient
-    </button>
+  <label htmlFor="ingredients">Ingredients:</label>
+  {formData.ingredients.map((ingredient, index) => (
+    <div key={index} className="input-group">
+      <input
+        type="text"
+        value={ingredient.quantity}
+        onChange={(e) => handleIngredientChange(index, 'quantity', e.target.value)}
+        placeholder="Quantity"
+        className="quantity-input"
+      />
+      <input
+        type="text"
+        value={ingredient.name}
+        onChange={(e) => handleIngredientChange(index, 'name', e.target.value)}
+        placeholder={`Ingredient ${index + 1}`}
+      />
+      {formData.ingredients.length > 1 && (
+        <button 
+          type="button" 
+          onClick={() => handleRemoveIngredient(index)}
+          className="remove-btn"
+        >
+          Remove
+        </button>
+      )}
+    </div>
+  ))}
+  <button 
+    type="button" 
+    onClick={() => setFormData({
+      ...formData,
+      ingredients: [...formData.ingredients, { name: '', quantity: '' }]
+    })}
+  >
+    Add Ingredient
+  </button>
 </div>
 
         <div className="form-group">
