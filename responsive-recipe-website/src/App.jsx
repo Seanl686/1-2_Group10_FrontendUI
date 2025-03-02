@@ -23,6 +23,7 @@ function App() {
           } />
           <Route path="/create-recipe" element={<CreateRecipe />} />
           <Route path="/recipe/:id" element={<RecipeDetails />} />
+          <Route path="/edit-recipe/:id" element={<CreateRecipe />} />
         </Routes>
         <footer className="App-footer">
           <p>&copy; 2025 Your Name</p>

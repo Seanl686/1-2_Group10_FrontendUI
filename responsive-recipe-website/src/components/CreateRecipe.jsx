@@ -1,38 +1,114 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import '../styles/CreateRecipe.css';
 
 function CreateRecipe() {
-  const [title, setTitle] = useState('');
-  const [prepTime, setPrepTime] = useState('');
-  const [cookTime, setCookTime] = useState('');
-  const [ingredients, setIngredients] = useState('');
-  const [instructions, setInstructions] = useState('');
-  const [file, setFile] = useState(null);
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    title: '',
+    prepTime: '',
+    cookTime: '',
+    ingredients: [],
+    instructions: [],
+    imageUrl: ''
+  });
   const [preview, setPreview] = useState(null);
 
-  const handleSubmit = (e) => {
+  useEffect(() => {
+    if (id) {
+      // Fetch recipe data if editing
+      fetchRecipeData();
+    }
+  }, [id]);
+
+  const fetchRecipeData = async () => {
+    try {
+      const response = await fetch(`http://localhost:5000/recipes/${id}`);
+      const data = await response.json();
+      setFormData({
+        title: data.title,
+        prepTime: data.prep_time,
+        cookTime: data.cook_time,
+        ingredients: data.ingredients,
+        instructions: data.instructions,
+        imageUrl: data.image_url
+      });
+      if (data.image_url) {
+        setPreview(data.image_url);
+      }
+    } catch (error) {
+      console.error('Error fetching recipe:', error);
+    }
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission logic here
-    console.log('New Recipe:', { title, prepTime, cookTime, ingredients, instructions, file });
+    const endpoint = id ? `http://localhost:5000/recipes/${id}` : 'http://localhost:5000/recipes';
+    const method = id ? 'PUT' : 'POST';
+
+    try {
+      const response = await fetch(endpoint, {
+        method: method,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData)
+      });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      navigate('/');
+    } catch (error) {
+      console.error('Error saving recipe:', error);
+    }
+  };
+
+  const handleIngredientChange = (index, value) => {
+    const updatedIngredients = [...formData.ingredients];
+    updatedIngredients[index] = value;
+    setFormData({ ...formData, ingredients: updatedIngredients });
+  };
+
+  const handleInstructionChange = (index, value) => {
+    const updatedInstructions = [...formData.instructions];
+    updatedInstructions[index] = value;
+    setFormData({ ...formData, instructions: updatedInstructions });
   };
 
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
-    setFile(selectedFile);
+    setFormData({ ...formData, imageUrl: URL.createObjectURL(selectedFile) });
     setPreview(URL.createObjectURL(selectedFile));
+  };
+
+  const handleRemoveIngredient = (indexToRemove) => {
+    setFormData({
+      ...formData,
+      ingredients: formData.ingredients.filter((_, index) => index !== indexToRemove)
+    });
+  };
+
+  const handleRemoveInstruction = (indexToRemove) => {
+    setFormData({
+      ...formData,
+      instructions: formData.instructions.filter((_, index) => index !== indexToRemove)
+    });
   };
 
   return (
     <div className="create-recipe">
-      <h1>Create New Recipe</h1>
+      <h1>{id ? 'Edit Recipe' : 'Create New Recipe'}</h1>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="title">Recipe Name:</label>
           <input
             type="text"
             id="title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
+            value={formData.title}
+            onChange={(e) => setFormData({ ...formData, title: e.target.value })}
             required
           />
         </div>
@@ -41,8 +117,8 @@ function CreateRecipe() {
           <input
             type="text"
             id="prepTime"
-            value={prepTime}
-            onChange={(e) => setPrepTime(e.target.value)}
+            value={formData.prepTime}
+            onChange={(e) => setFormData({ ...formData, prepTime: e.target.value })}
             required
           />
         </div>
@@ -51,30 +127,73 @@ function CreateRecipe() {
           <input
             type="text"
             id="cookTime"
-            value={cookTime}
-            onChange={(e) => setCookTime(e.target.value)}
+            value={formData.cookTime}
+            onChange={(e) => setFormData({ ...formData, cookTime: e.target.value })}
             required
           />
         </div>
         <div className="form-group">
           <label htmlFor="ingredients">Ingredients:</label>
-          <textarea
-            id="ingredients"
-            value={ingredients}
-            onChange={(e) => setIngredients(e.target.value)}
-            rows="5"
-            required
-          />
+          {formData.ingredients.map((ingredient, index) => (
+            <div key={index} className="input-group">
+              <input
+                type="text"
+                value={ingredient}
+                onChange={(e) => handleIngredientChange(index, e.target.value)}
+                placeholder={`Ingredient ${index + 1}`}
+              />
+              {formData.ingredients.length > 1 && (
+                <button 
+                  type="button" 
+                  onClick={() => handleRemoveIngredient(index)}
+                  className="remove-btn"
+                >
+                  Remove
+                </button>
+              )}
+            </div>
+          ))}
+          <button 
+            type="button" 
+            onClick={() => setFormData({
+              ...formData,
+              ingredients: [...formData.ingredients, '']
+            })}
+          >
+            Add Ingredient
+          </button>
         </div>
+
         <div className="form-group">
           <label htmlFor="instructions">Instructions:</label>
-          <textarea
-            id="instructions"
-            value={instructions}
-            onChange={(e) => setInstructions(e.target.value)}
-            rows="10"
-            required
-          />
+          {formData.instructions.map((instruction, index) => (
+            <div key={index} className="input-group">
+              <textarea
+                value={instruction}
+                onChange={(e) => handleInstructionChange(index, e.target.value)}
+                placeholder={`Step ${index + 1}`}
+                rows="3"
+              />
+              {formData.instructions.length > 1 && (
+                <button 
+                  type="button" 
+                  onClick={() => handleRemoveInstruction(index)}
+                  className="remove-btn"
+                >
+                  Remove
+                </button>
+              )}
+            </div>
+          ))}
+          <button 
+            type="button" 
+            onClick={() => setFormData({
+              ...formData,
+              instructions: [...formData.instructions, '']
+            })}
+          >
+            Add Step
+          </button>
         </div>
         <div className="form-group">
           <label htmlFor="file">Upload Photo</label>
@@ -86,10 +205,10 @@ function CreateRecipe() {
         </div>
         {preview && (
           <div className="image-preview">
-            <img src={preview} alt={`Preview of ${title}`} />
+            <img src={preview} alt={`Preview of ${formData.title}`} />
           </div>
         )}
-        <button type="submit">Add Recipe</button>
+        <button type="submit">{id ? 'Update Recipe' : 'Add Recipe'}</button>
       </form>
     </div>
   );
