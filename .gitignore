@@ -26,9 +26,6 @@ node_modules/
 # Output of 'npm pack'
 *.tgz
 
-# dotenv environment variables file
-.env
-
 # Next.js build output
 .next/
 

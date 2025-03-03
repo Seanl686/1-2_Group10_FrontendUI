@@ -6,35 +6,21 @@
 ![Screenshot](./images/Screenshot_2025-02-16-190409.png)
 ![Screenshot](./images/Screenshot_2025-02-16-190441.png)
 
-### Prerequisites
+## Prerequisites
 
-- Ensure Node.js and npm are installed on your machine. You can download them from [nodejs.org](https://nodejs.org/).
+- Node.js and npm (Download from [nodejs.org](https://nodejs.org/))
+- MongoDB Community Server (Download from [mongodb.com](https://www.mongodb.com/try/download/community))
 
-### Windows, macOS, and Linux Instructions
+## Setup Instructions
 
-1. Open terminal.
-2. Navigate to the project directory using the `cd` command:
+### 1. Backend Setup
+
+1. Open terminal and navigate to the Schema directory:
    ```sh
-   cd "ExampleFileStructure\Github\1-2_Group10_FrontendUI\responsive-recipe-website"
-   ```
-3. Install the project dependencies:
-   ```sh
-   npm install
-   npm install @vitejs/plugin-react --save-dev
-   ```
-4. Start the development server:
-   ```sh
-   npm  run dev
-   ```
-5. Open your web browser and go to `http://localhost:3000` to view the wireframe files.
+   cd "path-to-project\1-2_Group10_FrontendUI\Schema"
+     ```
+2.
+npm init -y
+npm install express mongoose cors dotenv body-parser
 
-### Explanation
-- **Install Dependencies**: Added a step to install the project dependencies using `npm install` and `npm install @vitejs/plugin-react --save-dev`.
-- **Start Development Server**: Provided a step to start the development server using `npm run dev`.
-- **Access Application**: Instructed to open the web browser and go to `http://localhost:3000` to view the wireframe files.
-
-### Notes
-- Ensure Node.js and npm are installed.
-- The default port used by `serve` is 3000.
-
-By following these steps, team members can easily view the wireframe files from the build folder on their local machines using `npm run start`.
+3.
