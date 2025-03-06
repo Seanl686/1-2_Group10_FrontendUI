@@ -1,6 +1,9 @@
 .create-recipe {
   padding: 20px;
   margin-bottom: 100px; /* Add margin to bottom of page */
+  max-width: 800px;          /* Limit form width */
+  margin-left: auto;         /* Center the form */
+  margin-right: auto;        /* Center the form */
 }
 
 .create-recipe h1 {
@@ -9,6 +12,7 @@
 
 .form-group {
   margin-bottom: 15px;
+  text-align: center;      /* Center the labels */
 }
 
 .form-group label {
@@ -21,6 +25,9 @@
   width: 100%;
   padding: 8px;
   box-sizing: border-box;
+  margin-left: auto;       /* Center input fields */
+  margin-right: auto;      /* Center input fields */
+  display: block;          /* Ensure block display */
 }
 
 .form-group input[pattern="\d*"] {
@@ -95,4 +102,37 @@ button:hover {
 /* Add padding to the form container */
 .form-group:last-child {
   margin-bottom: 40px;
+}
+
+.form-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+    justify-content: center;  /* Center the buttons */
+    align-items: center;     /* Vertically align buttons */
+}
+
+.delete-btn {
+    background-color: #dc3545;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.delete-btn:hover {
+    background-color: #c82333;
+}
+
+/* Add this for centering add buttons */
+.form-group > button {
+    display: block;
+    margin: 1rem auto;      /* Center add ingredient/step buttons */
+}
+
+/* Center the recipe times display */
+.recipe-times {
+    text-align: center;
+    margin-top: 2rem;
 }

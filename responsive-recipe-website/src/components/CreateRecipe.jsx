@@ -24,23 +24,30 @@ function CreateRecipe() {
 
   const fetchRecipeData = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/recipes/${id}`);
-      const data = await response.json();
-      setFormData({
-        title: data.title,
-        prepTime: data.prep_time,
-        cookTime: data.cook_time,
-        ingredients: data.ingredients,
-        instructions: data.instructions,
-        imageUrl: data.image_url
-      });
-      if (data.image_url) {
-        setPreview(data.image_url);
-      }
+        const response = await fetch(`http://localhost:5000/recipes/${id}`);
+        const data = await response.json();
+        
+        // Transform instructions from objects to strings
+        const formattedInstructions = data.instructions
+            .sort((a, b) => a.step_number - b.step_number)
+            .map(instruction => instruction.description);
+
+        setFormData({
+            title: data.title,
+            prepTime: data.prep_time,
+            cookTime: data.cook_time,
+            ingredients: data.ingredients,
+            instructions: formattedInstructions, // Use formatted instructions
+            imageUrl: data.image_url
+        });
+        
+        if (data.image_url) {
+            setPreview(data.image_url);
+        }
     } catch (error) {
-      console.error('Error fetching recipe:', error);
+        console.error('Error fetching recipe:', error);
     }
-  };
+};
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -62,8 +69,14 @@ function CreateRecipe() {
     };
 
     try {
-        const response = await fetch('http://localhost:5000/recipes', {
-            method: 'POST',
+        const url = id 
+            ? `http://localhost:5000/recipes/${id}` 
+            : 'http://localhost:5000/recipes';
+            
+        const method = id ? 'PUT' : 'POST';
+
+        const response = await fetch(url, {
+            method: method,
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -72,16 +85,16 @@ function CreateRecipe() {
 
         if (!response.ok) {
             const errorData = await response.json();
-            throw new Error(errorData.error || 'Failed to create recipe');
+            throw new Error(errorData.error || `Failed to ${id ? 'update' : 'create'} recipe`);
         }
 
         const data = await response.json();
-        console.log('Recipe created:', data);
-        alert('Recipe created successfully!');
+        console.log(`Recipe ${id ? 'updated' : 'created'}:`, data);
+        alert(`Recipe ${id ? 'updated' : 'created'} successfully!`);
         navigate('/');
     } catch (error) {
         console.error('Error:', error);
-        alert('Failed to create recipe: ' + error.message);
+        alert(`Failed to ${id ? 'update' : 'create'} recipe: ` + error.message);
     }
 };
 
@@ -130,6 +143,29 @@ function CreateRecipe() {
       });
     }
   };
+
+  // Add this new function after your other handlers
+  const handleDelete = async () => {
+    if (!id) return; // Only proceed if we have an ID
+    
+    if (window.confirm('Are you sure you want to delete this recipe?')) {
+        try {
+            const response = await fetch(`http://localhost:5000/recipes/${id}`, {
+                method: 'DELETE',
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to delete recipe');
+            }
+
+            alert('Recipe deleted successfully!');
+            navigate('/'); // Return to recipe list
+        } catch (error) {
+            console.error('Error deleting recipe:', error);
+            alert('Failed to delete recipe: ' + error.message);
+        }
+    }
+};
 
   return (
     <div className="create-recipe">
@@ -250,7 +286,18 @@ function CreateRecipe() {
             <img src={preview} alt={`Preview of ${formData.title}`} />
           </div>
         )}
-        <button type="submit">{id ? 'Update Recipe' : 'Add Recipe'}</button>
+        <div className="form-actions">
+            <button type="submit">{id ? 'Update Recipe' : 'Add Recipe'}</button>
+            {id && (
+                <button 
+                    type="button" 
+                    onClick={handleDelete}
+                    className="delete-btn"
+                >
+                    Delete Recipe
+                </button>
+            )}
+        </div>
       </form>
       <div className="recipe-times">
         <p><strong>Prep Time:</strong> {formData.prepTime} minutes</p>
