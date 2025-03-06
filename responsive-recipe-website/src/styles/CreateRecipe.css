@@ -172,28 +172,28 @@ button:hover {
 .preview-ingredients,
 .preview-instructions {
   margin-bottom: 20px;
-  text-align: left;  /* Add this */
+  text-align: left;
 }
 
 .preview-ingredients h4,
 .preview-instructions h4 {
   color: #2c3e50;
   margin-bottom: 10px;
-  text-align: left;  /* Add this */
+  text-align: left;
 }
 
 .preview-ingredients ul,
 .preview-instructions ol {
   padding-left: 20px;
-  text-align: left;  /* Add this */
-  margin-left: 20px; /* Add this for better list indentation */
+  text-align: left;
+  margin-left: 20px;
 }
 
 .preview-ingredients li,
 .preview-instructions li {
   margin-bottom: 5px;
-  text-align: left;  /* Add this */
-  padding-left: 10px; /* Add this for better list item spacing */
+  text-align: left;
+  padding-left: 10px;
 }
 
 .preview-image {
