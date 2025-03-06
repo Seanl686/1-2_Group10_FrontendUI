@@ -109,7 +109,7 @@ button:hover {
     gap: 1rem;
     margin-top: 2rem;
     justify-content: center;  /* Center the buttons */
-    align-items: center;     /* Vertically align buttons */
+    align-items: baseline;
 }
 
 .delete-btn {
@@ -135,4 +135,85 @@ button:hover {
 .recipe-times {
     text-align: center;
     margin-top: 2rem;
+}
+
+.recipe-preview {
+  margin-top: 40px;
+  padding: 20px;
+  border-top: 2px solid #eee;
+}
+
+.recipe-preview h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.preview-content {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.preview-content h3 {
+  text-align: center;
+  color: #2c3e50;
+  margin-bottom: 15px;
+}
+
+.preview-times {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.preview-ingredients,
+.preview-instructions {
+  margin-bottom: 20px;
+  text-align: left;  /* Add this */
+}
+
+.preview-ingredients h4,
+.preview-instructions h4 {
+  color: #2c3e50;
+  margin-bottom: 10px;
+  text-align: left;  /* Add this */
+}
+
+.preview-ingredients ul,
+.preview-instructions ol {
+  padding-left: 20px;
+  text-align: left;  /* Add this */
+  margin-left: 20px; /* Add this for better list indentation */
+}
+
+.preview-ingredients li,
+.preview-instructions li {
+  margin-bottom: 5px;
+  text-align: left;  /* Add this */
+  padding-left: 10px; /* Add this for better list item spacing */
+}
+
+.preview-image {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.preview-image img {
+  max-width: 100%;
+  max-height: 300px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+@media (max-width: 768px) {
+  .preview-content {
+    padding: 15px;
+  }
+  
+  .preview-image img {
+    max-height: 200px;
+  }
 }

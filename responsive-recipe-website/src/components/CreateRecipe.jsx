@@ -299,13 +299,58 @@ function CreateRecipe() {
             )}
         </div>
       </form>
-      <div className="recipe-times">
-        <p><strong>Prep Time:</strong> {formData.prepTime} minutes</p>
-        <p><strong>Cook Time:</strong> {formData.cookTime} minutes</p>
-        {formData.totalTime && (
-            <p><strong>Total Time:</strong> {formData.totalTime} minutes</p>
-        )}
+
+{/* Recipe Preview Section */}
+<div className="recipe-preview">
+  <h2>Recipe Preview</h2>
+  <div className="preview-content">
+    <h3>{formData.title || 'Recipe Name'}</h3>
+    
+    <div className="preview-times">
+  {formData.prepTime && formData.prepTime !== '0' && (
+    <p><strong>Prep Time:</strong> {formData.prepTime} minutes</p>
+  )}
+  {formData.cookTime && formData.cookTime !== '0' && (
+    <p><strong>Cook Time:</strong> {formData.cookTime} minutes</p>
+  )}
+  {formData.prepTime && formData.cookTime && (
+    <p>
+      <strong>Total Time:</strong> {parseInt(formData.prepTime) + parseInt(formData.cookTime)} minutes
+    </p>
+  )}
+</div>
+    
+    {formData.ingredients.length > 0 && (
+      <div className="preview-ingredients">
+        <h4>Ingredients</h4>
+        <ul>
+          {formData.ingredients.map((ingredient, index) => (
+            <li key={`preview-ing-${index}`}>
+              {ingredient.quantity} {ingredient.name}
+            </li>
+          ))}
+        </ul>
       </div>
+    )}
+    
+    {formData.instructions.length > 0 && (
+      <div className="preview-instructions">
+        <h4>Instructions</h4>
+        <ol>
+          {formData.instructions.map((instruction, index) => (
+            <li key={`preview-inst-${index}`}>{instruction}</li>
+          ))}
+        </ol>
+      </div>
+    )}
+    
+    {preview && (
+      <div className="preview-image">
+        <img src={preview} alt={`Preview of ${formData.title}`} />
+      </div>
+    )}
+  </div>
+</div>
     </div>
   );
 }
