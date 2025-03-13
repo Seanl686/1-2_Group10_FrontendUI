@@ -1,17 +1,12 @@
-# Recipe Management Application (Work in Progress)
+# Recipe Management Application
 
 ## Current Status
-This is a partially working implementation. Users can:
-- Create recipes (with some limitations)
-- View recipe list
-- Basic image upload functionality
-- Store recipes in MongoDB database
-
-Known limitations:
-- Recipe editing needs work
-- Time formatting issues exist
-- Image handling is basic
-- Some backend integration issues remain
+This application provides a functional recipe management system. Users can:
+- Create and store complete recipes
+- View a comprehensive recipe list
+- Edit existing recipes
+- Upload and manage recipe images
+- Store and retrieve recipes from MongoDB database
 
 ## Progress Screenshots
 ![Recipe List](./images/Screenshot_2025-02-16-190425.png)
@@ -35,7 +30,7 @@ Known limitations:
 2. Install backend dependencies:
    ```powershell
    npm init -y
-   npm install express mongoose cors dotenv body-parser
+   npm install express mongoose cors dotenv body-parser multer
    ```
 
 3. Start MongoDB (Run PowerShell as Administrator):
@@ -66,24 +61,28 @@ Known limitations:
    ```
 
 ## Features
-- Create and view recipes
-- Add ingredients and instructions
-- Upload recipe images
-- Track preparation and cooking times
+- Create and view recipes with detailed information
+- Edit existing recipes with full update capability
+- Add multiple ingredients with quantities and units
+- Create step-by-step cooking instructions
+- Upload high-quality recipe images
+- Track preparation and cooking times accurately
+- Responsive design for mobile and desktop use
 
-## Testing the Integration
+## Testing the Application
 
 1. Create a Recipe:
    - Navigate to http://localhost:5173
    - Click "Create New Recipe"
-   - Fill out the form (note: time fields may have formatting issues)
+   - Fill out the form with recipe details
+   - Add ingredients and instructions
+   - Upload an image
    - Submit the form
-   - Check console for successful creation message
 
-2. View Recipes:
-   - Return to home page
-   - Recently added recipes should appear
-   - Click on a recipe to view details
+2. View and Edit Recipes:
+   - Return to home page to see your recipe in the list
+   - Click on a recipe to view its details
+   - Use the edit button to modify any recipe information
 
 3. Verify Database:
    ```powershell
@@ -123,7 +122,7 @@ db.recipes.deleteMany({})
 
 ### Troubleshooting
 
-### Common Issues
+#### Common Issues
 
 1. Database Connection:
    ```powershell
@@ -145,15 +144,14 @@ db.recipes.deleteMany({})
    netstat -ano | findstr :5173
    ```
 
-### Known Bugs
-- Time fields may show "undefined minutes"
-- Image upload occasionally fails
-- Recipe updates may not reflect immediately
-- Frontend/Backend synchronization delays
+4. Image Upload Issues:
+   - Ensure the uploads directory exists in the backend
+   - Check file size limits in the backend configuration
 
-## Next Steps
-- Fix time formatting issues
-- Improve error handling
-- Enhance image upload functionality
-- Complete recipe editing feature
-- Add form validation
+## Project Roadmap and Future Features (TBD)
+- Add user authentication and personal recipe collections  
+- Implement user authentication and personal recipe collections
+- Add recipe rating and comments functionality
+- Create recipe sharing capabilities
+- Develop a mobile application version
+- Implement advanced search with ingredient matching
