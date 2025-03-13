@@ -1,0 +1,20 @@
+{
+  "name": "1-2_group10_frontendui",
+  "version": "1.0.0",
+  "description": "![Screenshot](./images/Screenshot_2025-02-16-190425.png)\r ![Screenshot](./images/Screenshot_2025-02-16-190409.png)\r ![Screenshot](./images/Screenshot_2025-02-16-190441.png)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Seanl686/1-2_Group10_FrontendUI.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Seanl686/1-2_Group10_FrontendUI/issues"
+  },
+  "homepage": "https://github.com/Seanl686/1-2_Group10_FrontendUI#readme"
+}

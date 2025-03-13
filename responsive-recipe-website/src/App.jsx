@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import RecipePage from './components/RecipePage.jsx';
 import CreateRecipe from './components/CreateRecipe.jsx';
 import RecipeDetails from './components/RecipeDetails.jsx';
-import './App.css';
+import './styles/App.css';
 
 function App() {
   return (
@@ -23,6 +23,7 @@ function App() {
           } />
           <Route path="/create-recipe" element={<CreateRecipe />} />
           <Route path="/recipe/:id" element={<RecipeDetails />} />
+          <Route path="/edit-recipe/:id" element={<CreateRecipe />} />
         </Routes>
         <footer className="App-footer">
           <p>&copy; 2025 Your Name</p>
