@@ -1,22 +1,16 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import RecipePage from './components/RecipePage.jsx';
 import CreateRecipe from './components/CreateRecipe.jsx';
 import RecipeDetails from './components/RecipeDetails.jsx';
+import Header from './components/Header.jsx';
 import './styles/App.css';
 
 function App() {
   return (
     <BrowserRouter>
       <div className="App">
-        <header className="App-header">
-          <h1>Responsive Recipe Web App</h1>
-          <nav>
-            <Link to="/" className="nav-button">
-              <span>Home</span>
-            </Link>
-          </nav>
-        </header>
+        <Header />
         <Routes>
           <Route path="/" element={
             <React.Suspense fallback={<div>Loading...</div>}>
