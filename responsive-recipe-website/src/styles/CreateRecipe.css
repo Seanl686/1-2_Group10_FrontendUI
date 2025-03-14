@@ -1,18 +1,20 @@
+/* Form container */
 .create-recipe {
   padding: 20px;
-  margin-bottom: 100px; /* Add margin to bottom of page */
-  max-width: 800px;          /* Limit form width */
-  margin-left: auto;         /* Center the form */
-  margin-right: auto;        /* Center the form */
+  margin-bottom: 100px;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .create-recipe h1 {
   margin-bottom: 20px;
 }
 
+/* Form groups and elements */
 .form-group {
   margin-bottom: 15px;
-  text-align: center;      /* Center the labels */
+  text-align: center;
 }
 
 .form-group label {
@@ -25,11 +27,12 @@
   width: 100%;
   padding: 8px;
   box-sizing: border-box;
-  margin-left: auto;       /* Center input fields */
-  margin-right: auto;      /* Center input fields */
-  display: block;          /* Ensure block display */
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
 }
 
+/* Numeric input styles */
 .form-group input[pattern="\d*"] {
   border: 1px solid #007bff;
 }
@@ -40,11 +43,11 @@
   box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
 }
 
-/* Add this if you want to style invalid inputs */
 .form-group input[pattern="\d*"]:invalid {
   border-color: #ff4444;
 }
 
+/* Image preview */
 .image-preview {
   margin-top: 15px;
 }
@@ -57,6 +60,7 @@
   border-radius: 5px;
 }
 
+/* Button styles */
 button {
   padding: 10px 20px;
   background-color: #007bff;
@@ -69,6 +73,37 @@ button:hover {
   background-color: #0056b3;
 }
 
+.create-recipe button[type="submit"] {
+  margin-bottom: 20px;
+}
+
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+  justify-content: center;
+  align-items: baseline;
+}
+
+.delete-btn {
+  background-color: #dc3545;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.delete-btn:hover {
+  background-color: #c82333;
+}
+
+.form-group > button {
+  display: block;
+  margin: 1rem auto;
+}
+
+/* Input groups (ingredients/instructions) */
 .input-group {
   display: flex;
   align-items: center;
@@ -94,49 +129,18 @@ button:hover {
   background-color: #cc0000;
 }
 
-/* Optional: If you want the button to stay visible at bottom */
-.create-recipe button[type="submit"] {
-  margin-bottom: 20px;
-}
-
-/* Add padding to the form container */
+/* Form spacing */
 .form-group:last-child {
   margin-bottom: 40px;
 }
 
-.form-actions {
-    display: flex;
-    gap: 1rem;
-    margin-top: 2rem;
-    justify-content: center;  /* Center the buttons */
-    align-items: baseline;
-}
-
-.delete-btn {
-    background-color: #dc3545;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-.delete-btn:hover {
-    background-color: #c82333;
-}
-
-/* Add this for centering add buttons */
-.form-group > button {
-    display: block;
-    margin: 1rem auto;      /* Center add ingredient/step buttons */
-}
-
-/* Center the recipe times display */
+/* Recipe times display */
 .recipe-times {
-    text-align: center;
-    margin-top: 2rem;
+  text-align: center;
+  margin-top: 2rem;
 }
 
+/* Recipe preview section */
 .recipe-preview {
   margin-top: 40px;
   padding: 20px;
@@ -208,6 +212,7 @@ button:hover {
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
+/* Responsive design */
 @media (max-width: 768px) {
   .preview-content {
     padding: 15px;

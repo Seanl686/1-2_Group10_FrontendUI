@@ -1,9 +1,11 @@
+/* Header container */
 .App-header {
   background-color: #282c34;
   padding: 20px;
   color: #ffffff;
 }
 
+/* Navigation links */
 nav a {
   color: #d3b8e6;
   text-decoration: none;
@@ -14,6 +16,7 @@ nav a:hover {
   text-decoration: underline;
 }
 
+/* Navigation buttons */
 .nav-button {
   display: inline-block;
   padding: 8px 16px;

@@ -1,7 +1,9 @@
+/* Page container */
 .recipe-page {
   padding: 20px;
 }
 
+/* Page header */
 .recipe-page-header {
   display: flex;
   justify-content: space-between;
@@ -23,6 +25,7 @@
   text-decoration: underline;
 }
 
+/* Recipe grid layout */
 .recipe-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -30,12 +33,7 @@
   padding-bottom: 100px;
 }
 
-@media (max-width: 768px) {
-  .recipe-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
+/* State indicators */
 .loading, .error {
   text-align: center;
   padding: 2rem;
@@ -44,4 +42,11 @@
 
 .error {
   color: #ff4444;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .recipe-grid {
+    grid-template-columns: 1fr;
+  }
 }
