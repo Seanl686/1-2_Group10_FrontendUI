@@ -26,7 +26,7 @@ function App() {
           <Route path="/edit-recipe/:id" element={<CreateRecipe />} />
         </Routes>
         <footer className="App-footer">
-          <p>&copy; 2025 Your Name</p>
+          <p>&copy; 2025 Group 10 CMCC</p>
         </footer>
       </div>
     </BrowserRouter>
