@@ -44,21 +44,6 @@
   text-align: center;
 }
 
-.App-header {
-  background-color: #282c34;
-  padding: 20px;
-  color: #ffffff; /* Ensure text is white for better contrast */
-}
-
-.App-footer {
-  background-color: #282c34;
-  padding: 10px;
-  color: #ffffff; /* Ensure text is white for better contrast */
-  position: fixed;
-  width: 100%;
-  bottom: 0;
-}
-
 nav a {
   color: #d3b8e6; /* Light purple color for navigation links */
   text-decoration: none;
