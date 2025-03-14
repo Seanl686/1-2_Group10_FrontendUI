@@ -12,7 +12,9 @@ function App() {
         <header className="App-header">
           <h1>Responsive Recipe Web App</h1>
           <nav>
-            <Link to="/">Home</Link>
+            <Link to="/" className="nav-button">
+              <span>Home</span>
+            </Link>
           </nav>
         </header>
         <Routes>
