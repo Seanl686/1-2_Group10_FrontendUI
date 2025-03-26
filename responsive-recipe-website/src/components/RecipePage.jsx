@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import placeholderImage from '../assets/placeholder.png';
-import '../styles/RecipePage.css';
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import placeholderImage from "../assets/placeholder.png";
+import "../styles/RecipePage.css";
 
 function RecipePage() {
   const [recipes, setRecipes] = useState([]);
@@ -14,13 +14,14 @@ function RecipePage() {
 
   const fetchRecipes = async () => {
     try {
-      const response = await fetch('http://localhost:5000/recipes');
+      const response = await fetch("http://localhost:5000/recipes");
       if (!response.ok) {
-        throw new Error('Failed to fetch recipes');
+        throw new Error("Failed to fetch recipes");
       }
       const data = await response.json();
       setRecipes(data);
     } catch (err) {
+      console.error("Error fetching recipes:", err);
       setError(err.message);
     } finally {
       setLoading(false);
@@ -34,16 +35,22 @@ function RecipePage() {
     <div className="recipe-page">
       <div className="recipe-page-header">
         <h1 className="recipe-page-title">Recipes!</h1>
-        <Link to="/create-recipe" className="create-recipe-link">Create New Recipe</Link>
+        <Link to="/create-recipe" className="create-recipe-link">
+          Create New Recipe
+        </Link>
       </div>
       <div className="recipe-grid">
         {recipes.map((recipe) => (
-          <Link key={recipe._id} to={`/recipe/${recipe._id}`} className="recipe-link">
+          <Link
+            key={recipe._id}
+            to={`/recipe/${recipe._id}`}
+            className="recipe-link"
+          >
             <div className="recipe-card">
               <div className="recipe-title">{recipe.title}</div>
               <div className="recipe-image">
-                <img 
-                  src={recipe.image_url || placeholderImage} 
+                <img
+                  src={recipe.image_url || placeholderImage}
                   alt={recipe.title}
                   onError={(e) => {
                     e.target.onerror = null;
